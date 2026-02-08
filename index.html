@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Plantinha</title>
-    <link rel="manifest" href="manifest.json">
     <style>
         :root { --primary: #4CAF50; --secondary: #2196F3; }
         body { 
@@ -629,22 +628,24 @@ function desativarPlanta() {
     plantaImg.src = imagemNormal;
 }
 
-// Eventos para Mouse
+// COLE ISTO:
+// Eventos para Mouse (Computador)
 plantaImg.addEventListener('mousedown', ativarPlanta);
 plantaImg.addEventListener('mouseup', desativarPlanta);
-plantaImg.addEventListener('mouseleave', desativarPlanta); // Garante que volta ao normal se o mouse sair de cima
+plantaImg.addEventListener('mouseleave', desativarPlanta);
 
-// Eventos para Telas Touch (Celular)
-plantaImg.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // Evita comportamentos padrão do navegador
-    ativarPlanta();
-});
+// Eventos para Toque (Celular) - Corrigido para balançar e falar
+plantaImg.addEventListener('touchstart', function(e) {
+    e.preventDefault(); 
+    ativarPlanta(); 
+}, {passive: false});
+
+plantaImg.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    desativarPlanta();
+}, {passive: false});
+
 plantaImg.addEventListener('touchend', desativarPlanta);
-
-if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
     </script>
 </body>
 </html>
-
